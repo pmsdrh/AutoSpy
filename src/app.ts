@@ -1,25 +1,13 @@
 import Fastify from "fastify";
+import healthRoute from "./api/routes/health.js";
+import analyzeRoute from "./api/routes/analyze.js";
 
-const app = Fastify({
-  logger: true
-})
-
-app.get('/health', async () => {
-  return {
-    status: "ok"
+export const app = Fastify({
+  logger: true,
+  routerOptions: {
+    ignoreTrailingSlash: true,
   }
 })
 
-const start = async () => {
-  try {
-    await app.listen({
-      port: 3000,
-      host: '127.0.0.1'
-    })
-  } catch (e) {
-    app.log.error(e);
-    process.exit(1);
-  }
-}
-
-start();
+app.register(healthRoute)
+app.register(analyzeRoute)
