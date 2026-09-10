@@ -1,6 +1,10 @@
 import type { FastifyPluginAsync } from "fastify";
-import { scanWebsite } from "../../scanner/website-scanner.js";
-import { analyzeWebsite } from "../../analysis/website-analyzer.js";
+import { scanWebsite } from "../../core/scanner/website-scanner.js";
+import { analyzeWebsite } from "../../core/analysis/full-analyzer.js";
+
+interface AnalyzeBody {
+  url: string;
+}
 
 const analyzeRoute: FastifyPluginAsync = 
 async (app) => {

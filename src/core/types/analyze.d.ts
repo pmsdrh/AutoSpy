@@ -1,15 +1,3 @@
-interface AnalyzeBody {
-  url: string;
-}
-
-interface ScanResult {
-  url: string;
-  title: string;
-  statusCode: number | null;
-  requests: NetworkRequest[];
-  totalTime: number;
-}
-
 interface NetworkRequest {
   url: string;
   method: string;
@@ -43,4 +31,12 @@ interface AnalysisResult {
     totalResponseSize: number;
   },
   assets: AssetType;
+  errors: {
+    count: number;
+    requests: {
+      url: string;
+      statusCode: number;
+      resourceType: string;
+    }[];
+  }
 }
