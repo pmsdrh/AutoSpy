@@ -20,6 +20,11 @@ interface NetworkRequest {
   responseSize: number | null;
 }
 
+type AssetType = Record<string, {
+      count: number;
+      totalSize: number;
+    }>
+
 interface AnalysisResult {
   totalRequests: number;
   resourceTypes: Record<string, number>;
@@ -36,5 +41,6 @@ interface AnalysisResult {
       duration: number;
     }[]
     totalResponseSize: number;
-  }
+  },
+  assets: AssetType;
 }

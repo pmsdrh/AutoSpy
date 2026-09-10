@@ -52,6 +52,20 @@ export const analyzeWebsite = (scan: ScanResult): AnalysisResult => {
     (total, request) => total + (request.responseSize ?? 0), 0
   )
 
+  //Assets
+  const assets: AssetType = {}
+  for (const request of scan.requests){
+    const type = request.resourceType;
+    const size = request.responseSize ?? 0
+    
+    if(!assets[type])
+      assets[type] = {count: 0, totalSize: 0}
+
+    assets[type].count += 1
+    assets[type].totalSize += size
+  }
+
+
   return {
     totalRequests: scan.requests.length,
     resourceTypes,
@@ -66,6 +80,7 @@ export const analyzeWebsite = (scan: ScanResult): AnalysisResult => {
       slowRequests: slowRequests,
       totalResponseSize
     },
+    assets
     
   }
 }
